@@ -244,7 +244,7 @@ body {
 }
 
 .game-subtitle {
-  font-size: 31px;
+  font-size: 28px;
   font-weight: 800;
   letter-spacing: 3px;
   color: #e2eeff;
@@ -256,7 +256,7 @@ body {
 }
 
 .game-title {
-  font-size: 86px;
+  font-size: 76px;
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: 4px;
@@ -274,8 +274,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 22px;
-  padding: 28px 34px 26px;
+  gap: 20px;
+  padding: 24px 34px 22px;
   min-height: 642px;
   border-radius: 28px;
   background: linear-gradient(180deg, #13274a 0%, #0e1d38 100%);
@@ -342,7 +342,7 @@ body {
 
 .question-prompt-wrap {
   width: 100%;
-  min-height: 132px;
+  min-height: 116px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,7 +351,7 @@ body {
 }
 
 .question-text {
-  font-size: 50px;
+  font-size: 46px;
   font-weight: 800;
   line-height: 1.24;
   color: var(--text-white);
@@ -368,7 +368,7 @@ body {
 /* Letter Boxes */
 .letter-boxes {
   width: 100%;
-  min-height: 108px;
+  min-height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -383,14 +383,14 @@ body {
 
 .letter-box {
   width: 88px;
-  height: 100px;
+  height: 92px;
   border-radius: 16px;
   background: #ffffff;
   color: #0f172a;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 54px;
+  font-size: 50px;
   font-weight: 900;
   text-transform: uppercase;
   box-shadow: 0 8px 0 #cbd5e1, 0 14px 24px rgba(0, 0, 0, 0.42);
@@ -505,7 +505,7 @@ body {
 /* Answer Panel (fixed-height container so zero layout shift) */
 .answer-panel {
   width: 100%;
-  min-height: 162px;
+  min-height: 148px;
   display: flex;
   align-items: stretch;
 }
@@ -638,8 +638,8 @@ body {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 18px 26px 20px;
+  gap: 10px;
+  padding: 14px 24px 16px;
   border-radius: 22px;
   background: var(--surface-card);
   border: 2px solid var(--border-subtle);
@@ -659,7 +659,7 @@ body {
 }
 
 .timer-value {
-  font-size: 44px;
+  font-size: 38px;
   font-weight: 900;
   line-height: 1;
   color: var(--yellow-bright);
@@ -747,7 +747,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 18px;
+  padding: 13px 16px;
   border-radius: 20px;
   background: var(--surface-card);
   border: 2px solid var(--border-subtle);
@@ -781,7 +781,7 @@ body {
 }
 
 .top3-medal {
-  font-size: 44px;
+  font-size: 38px;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -833,7 +833,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 22px;
+  padding: 13px 20px;
   background: rgba(255, 255, 255, 0.06);
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
@@ -863,10 +863,10 @@ body {
   flex: 1 1 auto;
   min-height: 0;
   overflow: hidden;
-  padding: 14px 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .empty-state {
@@ -884,7 +884,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 14px;
+  padding: 10px 14px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -944,12 +944,13 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Comment Row */
+/* Comment Row — một dòng / bình luận (tên + nội dung + huy hiệu nếu đúng),
+   để 7 bình luận vừa khung 1080x1920 */
 .comment-item {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 11px 14px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -967,13 +968,13 @@ body {
 }
 
 .comment-avatar {
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 900;
   color: #091326;
   flex-shrink: 0;
@@ -982,22 +983,25 @@ body {
 .comment-body {
   min-width: 0;
   flex: 1;
-}
-
-.comment-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
 }
 
 .comment-author {
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 800;
   color: #93c5fd;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.comment-author::after {
+  content: ":";
+  color: var(--text-muted);
+  margin-left: 0;
 }
 
 .comment-item.is-correct .comment-author {
@@ -1006,21 +1010,26 @@ body {
 
 .comment-badge-win {
   flex-shrink: 0;
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 8px;
   background: var(--green-mid);
   color: #ffffff;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
 }
 
 .comment-text {
-  margin-top: 2px;
-  font-size: 24px;
+  margin-top: 0;
+  font-size: 21px;
   font-weight: 600;
   color: #ffffff;
-  line-height: 1.25;
+  line-height: 1.2;
   word-break: break-word;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* =========================================================
@@ -1033,7 +1042,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 18px;
-  padding: 22px 30px;
+  padding: 16px 28px;
   border-radius: 22px;
   background: linear-gradient(90deg, #ea580c 0%, #ff7a00 50%, #ea580c 100%);
   box-shadow: 0 8px 0 #9a3412, 0 14px 28px rgba(234, 88, 12, 0.4);
@@ -1041,11 +1050,11 @@ body {
 }
 
 .cta-icon {
-  font-size: 38px;
+  font-size: 32px;
 }
 
 .cta-text {
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 900;
   letter-spacing: 0.8px;
   color: #ffffff;
@@ -1528,7 +1537,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 14px;
+  padding: 10px 14px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -1608,7 +1617,7 @@ body {
 
 .gift-perks-strip {
   flex-shrink: 0;
-  padding: 13px 24px;
+  padding: 10px 22px;
   border-radius: 18px;
   background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
   border: 2px solid rgba(236, 72, 153, 0.45);
@@ -1616,9 +1625,9 @@ body {
 }
 
 .gift-perks-line {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.35;
   color: var(--text-soft);
 }
 
