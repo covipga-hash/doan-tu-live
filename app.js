@@ -345,6 +345,10 @@
       const now = performance.now();
       if (!prio && now - state.lastSpeak < VOICE_THROTTLE_MS) return false;
       if (!prio && speechSynthesis.speaking) return false;
+      // Không bắt đầu câu thường khi vòng sắp hết (còn ≤4s): câu đó sẽ bị
+      // cắt ngang khi hết giờ. Chỉ câu ưu tiên (câu hỏi mới, đáp án, tổng kết)
+      // mới được cắt vào.
+      if (!prio && state.phase === 'playing' && state.timeLeft <= 4) return false;
       if (prio) speechSynthesis.cancel();
       const ok = speakRaw(text, lang, voiceOverride);
       if (ok) state.lastSpeak = now;
@@ -398,6 +402,9 @@
   // reading finishes first). Skipped silently if the voice is busy.
   function voiceScheduleStandings() {
     if (state.standingsTimer) { clearTimeout(state.standingsTimer); state.standingsTimer = null; }
+    // Vòng ngắn (≤20s) không đủ chỗ cho câu đọc bảng (5–6s): nó luôn bị cắt
+    // ngang khi hết giờ. Bỏ qua; bảng vẫn được đọc ở màn tổng kết.
+    if (state.questionDuration <= 20) return;
     const n = state.currentIndex + 1;
     if (n % 5 !== 0 || n <= 0) return;
     state.standingsTimer = setTimeout(() => {
@@ -417,14 +424,13 @@
   }
 
   function voiceOnCorrect(name, prevLeaderName, wasFirstPoint, points = 1) {
-    speak(`Chúc mừng ${name} đã đoán đúng, cộng ${points} điểm!`, true);
-    const sorted = getSortedLeaderboard();
-    const leader = sorted[0];
-    if (leader && leader.name !== prevLeaderName) {
-      speakRaw(`${leader.name} đã lên dẫn đầu bảng với ${leader.score} điểm!`);
-    } else if (wasFirstPoint) {
-      speakRaw(`Đây là điểm đầu tiên của ${name}!`);
-    }
+    // Chỉ chúc mừng khi giọng đang rảnh — KHÔNG cắt ngang câu hỏi đang đọc.
+    // Vòng 10s không đủ chỗ cho nhiều câu chúc mừng cắt nhau (đó là tiếng
+    // "lặp lại rồi nhảy loạn xạ" Cơ nghe thấy): trước đây mỗi người đoán đúng
+    // (hạng 1–2) đều cắt ngang bằng speechSynthesis.cancel() rồi đọc chúc mừng
+    // + thêm 1 câu dẫn đầu nữa. Giờ chỉ 1 câu chúc mừng, nói khi rảnh thì thôi;
+    // toast + bảng điểm vẫn báo ngay cho mọi người đoán đúng.
+    speak(`Chúc mừng ${name} đã đoán đúng, cộng ${points} điểm!`, false);
   }
 
   // Continuous commenter interaction: greet first-time commenters, cheer on
@@ -1124,7 +1130,9 @@
     const avatar = gift.avatar || '';
 
     showGiftToast(user, giftName, coins, avatar);
-    speak(`Cảm ơn ${user} đã tặng ${giftName}!`, false);
+    // Chỉ cảm ơn bằng giọng khi đang trong vòng (câu cảm ơn nói lúc hết giờ
+    // hoặc tổng kết sẽ bị câu sau cắt ngang).
+    if (state.phase === 'playing') speak(`Cảm ơn ${user} đã tặng ${giftName}!`, false);
 
     // Ghi vào bảng TOP TẶNG QUÀ (cập nhật trực tiếp, trước khi áp perk)
     recordDonation(user, coins, avatar);
