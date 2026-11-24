@@ -64,6 +64,7 @@
       document.getElementById('top3-slot-3')
     ],
     leaderboardList: document.getElementById('leaderboard-list'),
+    donorList: document.getElementById('donor-list'),
     commentFeed: document.getElementById('comment-feed'),
     commentCount: document.getElementById('comment-count'),
 
@@ -190,7 +191,8 @@
     hintsHidden: false, // câu hiện tại có đang ẩn gợi ý không
     topics: [], // tên chủ đề theo thứ tự xuất hiện trong questions.json
     topicIndices: {}, // topic -> [index câu]
-    giftToastTimer: null
+    giftToastTimer: null,
+    donors: new Map() // key: lowerName -> { name, avatar, totalCoins, giftCount, firstGiftAt }
   };
 
   // -----------------------------
@@ -846,6 +848,72 @@
   }
 
   // -----------------------------
+  // Rendering: TOP TẶNG QUÀ (donor board)
+  // -----------------------------
+  function getSortedDonors() {
+    return Array.from(state.donors.values()).sort((a, b) => {
+      if (b.totalCoins !== a.totalCoins) return b.totalCoins - a.totalCoins;
+      return a.firstGiftAt - b.firstGiftAt; // hòa xu: ai tặng trước xếp trước
+    });
+  }
+
+  function recordDonation(user, coins, avatar) {
+    const key = user.toLowerCase();
+    const existing = state.donors.get(key);
+    if (existing) {
+      existing.totalCoins += coins;
+      existing.giftCount += 1;
+      existing.name = user; // giữ tên hiển thị mới nhất
+      if (avatar) existing.avatar = avatar; // lấy avatar mới nhất
+    } else {
+      state.donors.set(key, {
+        name: user,
+        avatar: avatar || '',
+        totalCoins: coins,
+        giftCount: 1,
+        firstGiftAt: Date.now()
+      });
+    }
+    renderDonors(user);
+  }
+
+  function renderDonors(justGiftedName = null) {
+    const list = els.donorList;
+    if (!list) return;
+    const sorted = getSortedDonors();
+    if (sorted.length === 0) {
+      list.innerHTML = '<li class="empty-state">Chưa có ai tặng quà — tặng quà để lên bảng!</li>';
+      return;
+    }
+    list.innerHTML = sorted
+      .slice(0, 3)
+      .map((d, idx) => {
+        const rank = idx + 1;
+        const rankClass = rank <= 3 ? `lb-top${rank}` : '';
+        const flashClass =
+          justGiftedName && d.name.toLowerCase() === justGiftedName.toLowerCase()
+            ? 'lb-just-scored'
+            : '';
+        const avatarHtml = d.avatar
+          ? `<span class="donor-avatar"><img src="${escapeHtml(d.avatar)}" alt="" /></span>`
+          : `<span class="donor-avatar" style="background:${getAvatarColor(d.name)}">${escapeHtml(
+              getInitials(d.name)
+            )}</span>`;
+        return `
+          <li class="donor-row ${rankClass} ${flashClass}">
+            <span class="lb-rank">${rank}</span>
+            ${avatarHtml}
+            <span class="donor-info">
+              <span class="donor-name">${escapeHtml(d.name)}</span>
+              <span class="donor-meta">${d.totalCoins} xu • ${d.giftCount} quà</span>
+            </span>
+          </li>
+        `;
+      })
+      .join('');
+  }
+
+  // -----------------------------
   // Rendering: Comment Feed
   // -----------------------------
   function appendCommentToFeed(user, text, isWinningGuess) {
@@ -1057,6 +1125,9 @@
 
     showGiftToast(user, giftName, coins, avatar);
     speak(`Cảm ơn ${user} đã tặng ${giftName}!`, false);
+
+    // Ghi vào bảng TOP TẶNG QUÀ (cập nhật trực tiếp, trước khi áp perk)
+    recordDonation(user, coins, avatar);
 
     if (coins <= 1) {
       addBonusSeconds(5);
@@ -1328,10 +1399,12 @@
     state.greetedUsers.clear();
     if (state.standingsTimer) { clearTimeout(state.standingsTimer); state.standingsTimer = null; }
     state.scores.clear();
+    state.donors.clear();
     state.totalComments = 0;
     els.commentCount.textContent = '0';
     els.commentFeed.innerHTML = '<li class="empty-state">Đang chờ bình luận từ người xem...</li>';
     renderLeaderboard();
+    renderDonors();
 
     if (restartQuestions || state.phase === 'ended') {
       state.isRunning = true;
@@ -1807,6 +1880,7 @@
     updateStageScale();
     updateConnectionPill();
     renderLeaderboard();
+    renderDonors();
 
     try {
       state.questions = await loadQuestions();
@@ -1842,7 +1916,12 @@
       bonusSecondsThisRound: state.bonusSecondsThisRound,
       hardModeQuestionsLeft: state.hardModeQuestionsLeft,
       hintsHidden: state.hintsHidden,
-      revealedLetters: state.revealedLetterIdx.size
+      revealedLetters: state.revealedLetterIdx.size,
+      donors: getSortedDonors().map((d) => ({
+        name: d.name,
+        totalCoins: d.totalCoins,
+        giftCount: d.giftCount
+      }))
     }),
     submitComment: handleIncomingComment,
     submitGift: handleIncomingGift,
