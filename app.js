@@ -95,6 +95,8 @@
     toggleAutoNext: document.getElementById('toggle-auto-next'),
     toggleSfx: document.getElementById('toggle-sfx'),
     toggleVoice: document.getElementById('toggle-voice'),
+    voiceIndicator: document.getElementById('voice-indicator'),
+    voiceUnlockBtn: document.getElementById('voice-unlock-btn'),
     wsStatus: document.getElementById('ws-status'),
     inputTiktokUser: document.getElementById('input-tiktok-user'),
     btnConnectTiktok: document.getElementById('btn-connect-tiktok'),
@@ -163,6 +165,10 @@
     autoNext: true,
     sfxEnabled: true,
     voiceOn: true,
+    voiceUnlocked: false, // Chrome (Android) chặn speechSynthesis tới khi chạm vào trang — mở khóa bằng nút "Bấm để bật tiếng" / chạm đầu tiên
+    voicesReady: false, // getVoices() đã trả về giọng (load bất đồng bộ trên Android)
+    voiceUnlocking: false, // đang chờ voices / đang đọc câu mở khóa
+    lastUtteranceAt: 0, // mốc lần speak gần nhất — để nhận biết hàng đợi bị kẹt
     voiceCache: {},
     lastSpeak: 0,
     commenters: new Map(), // lowerName -> { name, count, lastCheer }
@@ -294,7 +300,7 @@
   }
 
   if ('speechSynthesis' in window) {
-    try { speechSynthesis.addEventListener('voiceschanged', () => { state.voiceCache = {}; }); } catch (e) {}
+    try { speechSynthesis.addEventListener('voiceschanged', () => { state.voiceCache = {}; state.voicesReady = (speechSynthesis.getVoices() || []).length > 0; }); } catch (e) {}
   }
 
   // Female-voice preference for English (American) speech: the answer word
@@ -324,6 +330,100 @@
     } catch (e) { return null; }
   }
 
+  // -----------------------------
+  // Voice unlock — Chrome (Android) chặn speechSynthesis cho tới khi
+  // người dùng chạm vào CHÍNH trang 1 lần (autoplay/user-activation).
+  // Game đọc ngay từ lúc tải trang nên câu đầu hay bị im, và không có
+  // gì mở khóa lại sau đó. Nút "Bấm để bật tiếng" + chạm đầu tiên vào
+  // trang sẽ mở khóa; nút tự ẩn khi giọng đã chạy. (Cơ 24/11 23:47:
+  // "mở web lên cứ hay bị mất tiếng".)
+  // -----------------------------
+  function updateVoiceIndicator() {
+    const el = els.voiceIndicator;
+    if (!el) return;
+    const on = state.voiceOn && state.voiceUnlocked;
+    el.textContent = on ? '🔊' : '🔇';
+    el.classList.toggle('voice-off', !on);
+    el.title = on ? 'Giọng đọc đang bật — bấm để tắt tiếng' : 'Giọng đọc đang tắt — bấm để bật tiếng';
+    if (els.toggleVoice) els.toggleVoice.checked = state.voiceOn;
+  }
+
+  function setVoiceUnlockBtnVisible(show) {
+    const btn = els.voiceUnlockBtn;
+    if (!btn) return;
+    btn.classList.toggle('hidden', !show);
+  }
+
+  // Dọn hàng đợi giọng bị kẹt (có câu chờ mà không câu nào đang đọc —
+  // lỗi quen thuộc của Chrome). Chỉ dọn khi lần speak gần nhất đã cách
+  // đây >3s: các mảnh của 1 câu hỏi được đọc liền nhau trong vài ms nên
+  // không bao giờ chạm tới ngưỡng này.
+  function clearStalledSpeechQueue() {
+    try {
+      if (!('speechSynthesis' in window)) return;
+      if (speechSynthesis.pending && !speechSynthesis.speaking) {
+        const last = state.lastUtteranceAt || 0;
+        if (!last || performance.now() - last > 3000) speechSynthesis.cancel();
+      }
+    } catch (e) {}
+  }
+
+  function waitForVoices(timeoutMs, cb) {
+    try {
+      if (!('speechSynthesis' in window)) { cb(false); return; }
+      const list = speechSynthesis.getVoices() || [];
+      if (list.length > 0) { state.voicesReady = true; cb(true); return; }
+      let done = false;
+      const finish = (ok) => {
+        if (done) return;
+        done = true;
+        try { speechSynthesis.removeEventListener('voiceschanged', onChange); } catch (e) {}
+        if (ok) state.voicesReady = true;
+        cb(ok);
+      };
+      const onChange = () => finish((speechSynthesis.getVoices() || []).length > 0);
+      try { speechSynthesis.addEventListener('voiceschanged', onChange); } catch (e) {}
+      setTimeout(() => finish((speechSynthesis.getVoices() || []).length > 0), timeoutMs);
+    } catch (e) { cb(false); }
+  }
+
+  // Đọc câu mở khóa 1 lần ("Đã bật tiếng") — chỉ chạy trong handler của
+  // 1 thao tác chạm (nút / chạm đầu tiên) nên Chrome cho phép phát tiếng.
+  function speakWarmup() {
+    try {
+      if (!('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance('Đã bật tiếng');
+      u.lang = 'vi-VN'; u.rate = 1.4; u.pitch = 1.12; u.volume = 1.0;
+      const voice = pickVoice('vi-VN');
+      if (voice) u.voice = voice;
+      u.onstart = () => {
+        state.voiceUnlocked = true;
+        state.voiceUnlocking = false;
+        setVoiceUnlockBtnVisible(false);
+        updateVoiceIndicator();
+      };
+      u.onerror = () => { state.voiceUnlocking = false; };
+      speechSynthesis.speak(u);
+      state.lastUtteranceAt = performance.now();
+    } catch (e) { state.voiceUnlocking = false; }
+  }
+
+  function unlockVoice() {
+    try {
+      if (state.voiceUnlocked || state.voiceUnlocking) return state.voiceUnlocked;
+      if (!('speechSynthesis' in window)) { setVoiceUnlockBtnVisible(false); updateVoiceIndicator(); return false; }
+      if (!state.voiceOn) state.voiceOn = true;
+      state.voiceUnlocking = true;
+      // Cho phép thử lại nếu lần mở khóa này kẹt quá 5s không có kết quả.
+      setTimeout(() => { if (!state.voiceUnlocked) state.voiceUnlocking = false; }, 5000);
+      clearStalledSpeechQueue();
+      // Giọng load bất đồng bộ trên Android — đợi tối đa 3s rồi mới đọc
+      // câu mở khóa, để không đọc vào khoảng không khi chưa có giọng.
+      waitForVoices(3000, () => speakWarmup());
+      return false;
+    } catch (e) { state.voiceUnlocking = false; return false; }
+  }
+
   function speakRaw(text, lang, voiceOverride) {
     try {
       if (!state.voiceOn || !('speechSynthesis' in window)) return false;
@@ -334,7 +434,10 @@
       u.lang = useLang; u.rate = 1.4; u.pitch = 1.12; u.volume = 1.0; // Tối đa trình duyệt cho phép (Cơ 24/11 20:49: +50% từ 0.75 = 1.125, vượt trần 1.0 nên lấy 1.0, thực tăng ~33%).
       const voice = voiceOverride || pickVoice(useLang);
       if (voice) u.voice = voice;
+      // Tự cứu khi hàng đợi giọng bị kẹt từ lần đọc trước.
+      clearStalledSpeechQueue();
       speechSynthesis.speak(u);
+      state.lastUtteranceAt = performance.now();
       return true;
     } catch (e) { return false; }
   }
@@ -1789,6 +1892,25 @@
     els.toggleVoice.addEventListener('change', () => {
       state.voiceOn = els.toggleVoice.checked;
       if (!state.voiceOn && ('speechSynthesis' in window)) speechSynthesis.cancel();
+      updateVoiceIndicator();
+    });
+
+    // Mở khóa giọng (Cơ 24/11 23:47 — mở web hay bị mất tiếng): nút
+    // "Bấm để bật tiếng" + chạm đầu tiên vào trang; quay lại tab thì dọn
+    // hàng đợi kẹt (không đọc gì ở đây vì không có thao tác chạm).
+    if (els.voiceUnlockBtn) els.voiceUnlockBtn.addEventListener('click', () => unlockVoice());
+    if (els.voiceIndicator) els.voiceIndicator.addEventListener('click', () => {
+      if (!state.voiceUnlocked) { unlockVoice(); return; }
+      state.voiceOn = !state.voiceOn;
+      if (!state.voiceOn && ('speechSynthesis' in window)) { try { speechSynthesis.cancel(); } catch (e) {} }
+      updateVoiceIndicator();
+    });
+    const primeOnFirstGesture = () => unlockVoice();
+    document.addEventListener('pointerdown', primeOnFirstGesture, { once: true, passive: true });
+    document.addEventListener('touchstart', primeOnFirstGesture, { once: true, passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) return;
+      if (state.voiceUnlocked) clearStalledSpeechQueue();
     });
 
     els.btnHidePanel.addEventListener('click', () => toggleHostPanel(true));
@@ -1908,6 +2030,9 @@
     bindHostControls();
     updateStageScale();
     updateConnectionPill();
+    updateVoiceIndicator();
+    // Không có speechSynthesis thì nút mở khóa vô nghĩa — ẩn luôn.
+    if (!('speechSynthesis' in window)) setVoiceUnlockBtnVisible(false);
     renderLeaderboard();
     renderDonors();
 
@@ -1946,6 +2071,8 @@
       hardModeQuestionsLeft: state.hardModeQuestionsLeft,
       hintsHidden: state.hintsHidden,
       revealedLetters: state.revealedLetterIdx.size,
+      voiceUnlocked: state.voiceUnlocked,
+      voiceOn: state.voiceOn,
       donors: getSortedDonors().map((d) => ({
         name: d.name,
         totalCoins: d.totalCoins,

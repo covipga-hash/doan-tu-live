@@ -30,6 +30,14 @@
           <span class="toast-text" id="gift-toast-text"></span>
         </div>
 
+        <!-- Voice Unlock Overlay: Chrome (Android) chặn tiếng tới khi chạm
+             vào trang — bấm 1 lần để mở khóa giọng cho cả buổi live -->
+        <button type="button" class="voice-unlock-btn" id="voice-unlock-btn">
+          <span class="voice-unlock-icon" aria-hidden="true">🔊</span>
+          <span class="voice-unlock-text">Bấm để bật tiếng</span>
+          <span class="voice-unlock-sub">Chạm 1 lần để nghe giọng đọc cả buổi live</span>
+        </button>
+
         <!-- 1. TOP HEADER -->
         <header class="game-header">
           <div class="header-top-row">
@@ -41,6 +49,7 @@
               <span class="mode-dot" id="connection-dot"></span>
               <span id="connection-label">DEMO MODE</span>
             </div>
+            <button type="button" class="voice-indicator voice-off" id="voice-indicator" title="Giọng đọc đang tắt — bấm để bật tiếng">🔇</button>
           </div>
 
           <p class="game-subtitle">TIẾNG ANH - A2 - TỪ VỰNG</p>
