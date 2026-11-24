@@ -1,0 +1,1169 @@
+// Auto-generated from questions.json for offline file:// support
+window.QUESTIONS_DATA = [
+  {
+    "id": 1,
+    "direction": "vi-en",
+    "question": "khăn tắm trong tiếng Anh là gì?",
+    "keyword": "khăn tắm",
+    "answer": "TOWEL",
+    "acceptedAnswers": [
+      "towel"
+    ],
+    "ipa": "/taʊəl/",
+    "meaning": "khăn tắm",
+    "example": "Please dry your hands with a clean towel.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "T",
+      "letterCount": 5,
+      "text": "Danh từ (n) • 5 chữ cái • Chữ đầu: T"
+    }
+  },
+  {
+    "id": 2,
+    "direction": "vi-en",
+    "question": "lịch trình trong tiếng Anh là gì?",
+    "keyword": "lịch trình",
+    "answer": "SCHEDULE",
+    "acceptedAnswers": [
+      "schedule"
+    ],
+    "ipa": "/ˈskedʒuːl/",
+    "meaning": "lịch trình",
+    "example": "My daily schedule is very busy this week.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "S",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: S"
+    }
+  },
+  {
+    "id": 3,
+    "direction": "vi-en",
+    "question": "cây dù trong tiếng Anh là gì?",
+    "keyword": "cây dù",
+    "answer": "UMBRELLA",
+    "acceptedAnswers": [
+      "umbrella"
+    ],
+    "ipa": "/ʌmˈbrelə/",
+    "meaning": "cây dù, cái ô",
+    "example": "Take an umbrella with you because it looks like rain.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "U",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: U"
+    }
+  },
+  {
+    "id": 4,
+    "direction": "vi-en",
+    "question": "chợ trong tiếng Anh là gì?",
+    "keyword": "chợ",
+    "answer": "MARKET",
+    "acceptedAnswers": [
+      "market"
+    ],
+    "ipa": "/ˈmɑːrkɪt/",
+    "meaning": "chợ, thị trường",
+    "example": "My mother buys fresh fruit at the morning market.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "M",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: M"
+    }
+  },
+  {
+    "id": 5,
+    "direction": "en-vi",
+    "question": "benefit /ˈben.ə.fɪt/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "benefit",
+    "answer": "LỢI ÍCH",
+    "acceptedAnswers": [
+      "lợi ích",
+      "loi ich"
+    ],
+    "ipa": "/ˈben.ə.fɪt/",
+    "meaning": "lợi ích",
+    "example": "Regular exercise has many health benefits.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "L",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái (2 từ) • Chữ đầu: L"
+    }
+  },
+  {
+    "id": 6,
+    "direction": "vi-en",
+    "question": "sân bay trong tiếng Anh là gì?",
+    "keyword": "sân bay",
+    "answer": "AIRPORT",
+    "acceptedAnswers": [
+      "airport"
+    ],
+    "ipa": "/ˈeərpɔːrt/",
+    "meaning": "sân bay",
+    "example": "We arrived at the airport two hours before our flight.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "A",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: A"
+    }
+  },
+  {
+    "id": 7,
+    "direction": "vi-en",
+    "question": "thời tiết trong tiếng Anh là gì?",
+    "keyword": "thời tiết",
+    "answer": "WEATHER",
+    "acceptedAnswers": [
+      "weather"
+    ],
+    "ipa": "/ˈweðər/",
+    "meaning": "thời tiết",
+    "example": "The weather in Da Lat is cool all year round.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "W",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: W"
+    }
+  },
+  {
+    "id": 8,
+    "direction": "vi-en",
+    "question": "bữa sáng trong tiếng Anh là gì?",
+    "keyword": "bữa sáng",
+    "answer": "BREAKFAST",
+    "acceptedAnswers": [
+      "breakfast"
+    ],
+    "ipa": "/ˈbrekfəst/",
+    "meaning": "bữa sáng",
+    "example": "I usually eat bread and eggs for breakfast.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "B",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái • Chữ đầu: B"
+    }
+  },
+  {
+    "id": 9,
+    "direction": "en-vi",
+    "question": "journey /ˈdʒɜːrni/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "journey",
+    "answer": "HÀNH TRÌNH",
+    "acceptedAnswers": [
+      "hành trình",
+      "hanh trinh",
+      "chuyến đi",
+      "chuyen di"
+    ],
+    "ipa": "/ˈdʒɜːrni/",
+    "meaning": "hành trình, chuyến đi",
+    "example": "The train journey to Hue took almost four hours.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái (2 từ) • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 10,
+    "direction": "vi-en",
+    "question": "vé (tàu, xe, xem phim) trong tiếng Anh là gì?",
+    "keyword": "vé",
+    "answer": "TICKET",
+    "acceptedAnswers": [
+      "ticket"
+    ],
+    "ipa": "/ˈtɪkɪt/",
+    "meaning": "vé",
+    "example": "I booked two movie tickets online last night.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "T",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: T"
+    }
+  },
+  {
+    "id": 11,
+    "direction": "vi-en",
+    "question": "hộ chiếu trong tiếng Anh là gì?",
+    "keyword": "hộ chiếu",
+    "answer": "PASSPORT",
+    "acceptedAnswers": [
+      "passport"
+    ],
+    "ipa": "/ˈpæspɔːrt/",
+    "meaning": "hộ chiếu",
+    "example": "You need a valid passport to travel abroad.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "P",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: P"
+    }
+  },
+  {
+    "id": 12,
+    "direction": "vi-en",
+    "question": "nhà bếp trong tiếng Anh là gì?",
+    "keyword": "nhà bếp",
+    "answer": "KITCHEN",
+    "acceptedAnswers": [
+      "kitchen"
+    ],
+    "ipa": "/ˈkɪtʃɪn/",
+    "meaning": "nhà bếp",
+    "example": "She is cooking dinner in the kitchen right now.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "K",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: K"
+    }
+  },
+  {
+    "id": 13,
+    "direction": "en-vi",
+    "question": "habit /ˈhæbɪt/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "habit",
+    "answer": "THÓI QUEN",
+    "acceptedAnswers": [
+      "thói quen",
+      "thoi quen"
+    ],
+    "ipa": "/ˈhæbɪt/",
+    "meaning": "thói quen",
+    "example": "Reading every night is a very good habit.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "T",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái (2 từ) • Chữ đầu: T"
+    }
+  },
+  {
+    "id": 14,
+    "direction": "vi-en",
+    "question": "thư viện trong tiếng Anh là gì?",
+    "keyword": "thư viện",
+    "answer": "LIBRARY",
+    "acceptedAnswers": [
+      "library"
+    ],
+    "ipa": "/ˈlaɪbreri/",
+    "meaning": "thư viện",
+    "example": "Students often study quietly in the school library.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "L",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: L"
+    }
+  },
+  {
+    "id": 15,
+    "direction": "vi-en",
+    "question": "bệnh viện trong tiếng Anh là gì?",
+    "keyword": "bệnh viện",
+    "answer": "HOSPITAL",
+    "acceptedAnswers": [
+      "hospital"
+    ],
+    "ipa": "/ˈhɒspɪtl/",
+    "meaning": "bệnh viện",
+    "example": "My sister works as a nurse at the city hospital.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 16,
+    "direction": "vi-en",
+    "question": "tin nhắn trong tiếng Anh là gì?",
+    "keyword": "tin nhắn",
+    "answer": "MESSAGE",
+    "acceptedAnswers": [
+      "message"
+    ],
+    "ipa": "/ˈmesɪdʒ/",
+    "meaning": "tin nhắn",
+    "example": "Please send me a message when you get home.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "M",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: M"
+    }
+  },
+  {
+    "id": 17,
+    "direction": "en-vi",
+    "question": "advice /ədˈvaɪs/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "advice",
+    "answer": "LỜI KHUYÊN",
+    "acceptedAnswers": [
+      "lời khuyên",
+      "loi khuyen"
+    ],
+    "ipa": "/ədˈvaɪs/",
+    "meaning": "lời khuyên",
+    "example": "Thank you for giving me such helpful advice.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "L",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái (2 từ) • Chữ đầu: L"
+    }
+  },
+  {
+    "id": 18,
+    "direction": "vi-en",
+    "question": "cuối tuần trong tiếng Anh là gì?",
+    "keyword": "cuối tuần",
+    "answer": "WEEKEND",
+    "acceptedAnswers": [
+      "weekend"
+    ],
+    "ipa": "/ˈwiːkend/",
+    "meaning": "cuối tuần",
+    "example": "What are your plans for this weekend?",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "W",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: W"
+    }
+  },
+  {
+    "id": 19,
+    "direction": "vi-en",
+    "question": "kỳ nghỉ trong tiếng Anh là gì?",
+    "keyword": "kỳ nghỉ",
+    "answer": "HOLIDAY",
+    "acceptedAnswers": [
+      "holiday"
+    ],
+    "ipa": "/ˈhɒlədeɪ/",
+    "meaning": "kỳ nghỉ, ngày lễ",
+    "example": "We are going to Phu Quoc for our summer holiday.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 20,
+    "direction": "vi-en",
+    "question": "cầu nối / cây cầu trong tiếng Anh là gì?",
+    "keyword": "cây cầu",
+    "answer": "BRIDGE",
+    "acceptedAnswers": [
+      "bridge"
+    ],
+    "ipa": "/brɪdʒ/",
+    "meaning": "cây cầu",
+    "example": "The Golden Bridge in Da Nang is famous worldwide.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "B",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: B"
+    }
+  },
+  {
+    "id": 21,
+    "direction": "en-vi",
+    "question": "prepare /prɪˈpeər/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "prepare",
+    "answer": "CHUẨN BỊ",
+    "acceptedAnswers": [
+      "chuẩn bị",
+      "chuan bi"
+    ],
+    "ipa": "/prɪˈpeər/",
+    "meaning": "chuẩn bị",
+    "example": "We need to prepare carefully for the English exam.",
+    "hint": {
+      "wordType": "Động từ (v)",
+      "firstLetter": "C",
+      "letterCount": 7,
+      "text": "Động từ (v) • 7 chữ cái (2 từ) • Chữ đầu: C"
+    }
+  },
+  {
+    "id": 22,
+    "direction": "vi-en",
+    "question": "nhà hàng trong tiếng Anh là gì?",
+    "keyword": "nhà hàng",
+    "answer": "RESTAURANT",
+    "acceptedAnswers": [
+      "restaurant"
+    ],
+    "ipa": "/ˈrestrɒnt/",
+    "meaning": "nhà hàng",
+    "example": "Let's have dinner at that new seafood restaurant.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "R",
+      "letterCount": 10,
+      "text": "Danh từ (n) • 10 chữ cái • Chữ đầu: R"
+    }
+  },
+  {
+    "id": 23,
+    "direction": "vi-en",
+    "question": "bạn cùng lớp trong tiếng Anh là gì?",
+    "keyword": "bạn cùng lớp",
+    "answer": "CLASSMATE",
+    "acceptedAnswers": [
+      "classmate"
+    ],
+    "ipa": "/ˈklɑːsmeɪt/",
+    "meaning": "bạn cùng lớp",
+    "example": "Lan is my best classmate in English class.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "C",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái • Chữ đầu: C"
+    }
+  },
+  {
+    "id": 24,
+    "direction": "vi-en",
+    "question": "hành lý trong tiếng Anh là gì?",
+    "keyword": "hành lý",
+    "answer": "LUGGAGE",
+    "acceptedAnswers": [
+      "luggage"
+    ],
+    "ipa": "/ˈlʌɡɪdʒ/",
+    "meaning": "hành lý",
+    "example": "Please do not leave your luggage unattended.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "L",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: L"
+    }
+  },
+  {
+    "id": 25,
+    "direction": "en-vi",
+    "question": "customer /ˈkʌstəmər/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "customer",
+    "answer": "KHÁCH HÀNG",
+    "acceptedAnswers": [
+      "khách hàng",
+      "khach hang"
+    ],
+    "ipa": "/ˈkʌstəmər/",
+    "meaning": "khách hàng",
+    "example": "The staff always greet every customer with a smile.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "K",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái (2 từ) • Chữ đầu: K"
+    }
+  },
+  {
+    "id": 26,
+    "direction": "vi-en",
+    "question": "bảo tàng trong tiếng Anh là gì?",
+    "keyword": "bảo tàng",
+    "answer": "MUSEUM",
+    "acceptedAnswers": [
+      "museum"
+    ],
+    "ipa": "/mjuˈziːəm/",
+    "meaning": "bảo tàng",
+    "example": "We visited the history museum last Sunday.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "M",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: M"
+    }
+  },
+  {
+    "id": 27,
+    "direction": "vi-en",
+    "question": "nguy hiểm trong tiếng Anh là gì?",
+    "keyword": "nguy hiểm",
+    "answer": "DANGEROUS",
+    "acceptedAnswers": [
+      "dangerous"
+    ],
+    "ipa": "/ˈdeɪndʒərəs/",
+    "meaning": "nguy hiểm",
+    "example": "It is dangerous to drive too fast in heavy rain.",
+    "hint": {
+      "wordType": "Tính từ (adj)",
+      "firstLetter": "D",
+      "letterCount": 9,
+      "text": "Tính từ (adj) • 9 chữ cái • Chữ đầu: D"
+    }
+  },
+  {
+    "id": 28,
+    "direction": "vi-en",
+    "question": "cái gối trong tiếng Anh là gì?",
+    "keyword": "cái gối",
+    "answer": "PILLOW",
+    "acceptedAnswers": [
+      "pillow"
+    ],
+    "ipa": "/ˈpɪloʊ/",
+    "meaning": "cái gối",
+    "example": "This hotel has very soft pillows and blankets.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "P",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: P"
+    }
+  },
+  {
+    "id": 29,
+    "direction": "en-vi",
+    "question": "improve /ɪmˈpruːv/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "improve",
+    "answer": "CẢI THIỆN",
+    "acceptedAnswers": [
+      "cải thiện",
+      "cai thien"
+    ],
+    "ipa": "/ɪmˈpruːv/",
+    "meaning": "cải thiện, nâng cao",
+    "example": "Practicing every day will improve your speaking skills.",
+    "hint": {
+      "wordType": "Động từ (v)",
+      "firstLetter": "C",
+      "letterCount": 8,
+      "text": "Động từ (v) • 8 chữ cái (2 từ) • Chữ đầu: C"
+    }
+  },
+  {
+    "id": 30,
+    "direction": "vi-en",
+    "question": "hàng xóm trong tiếng Anh là gì?",
+    "keyword": "hàng xóm",
+    "answer": "NEIGHBOR",
+    "acceptedAnswers": [
+      "neighbor",
+      "neighbour"
+    ],
+    "ipa": "/ˈneɪbər/",
+    "meaning": "hàng xóm",
+    "example": "Our next-door neighbor is very friendly and kind.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "N",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: N"
+    }
+  },
+  {
+    "id": 31,
+    "direction": "vi-en",
+    "question": "ngon miệng trong tiếng Anh là gì?",
+    "keyword": "ngon miệng",
+    "answer": "DELICIOUS",
+    "acceptedAnswers": [
+      "delicious"
+    ],
+    "ipa": "/dɪˈlɪʃəs/",
+    "meaning": "ngon miệng",
+    "example": "Vietnamese pho is really delicious and healthy.",
+    "hint": {
+      "wordType": "Tính từ (adj)",
+      "firstLetter": "D",
+      "letterCount": 9,
+      "text": "Tính từ (adj) • 9 chữ cái • Chữ đầu: D"
+    }
+  },
+  {
+    "id": 32,
+    "direction": "vi-en",
+    "question": "quyết định (động từ) trong tiếng Anh là gì?",
+    "keyword": "quyết định",
+    "answer": "DECIDE",
+    "acceptedAnswers": [
+      "decide"
+    ],
+    "ipa": "/dɪˈsaɪd/",
+    "meaning": "quyết định",
+    "example": "I can't decide which shirt to wear to the party.",
+    "hint": {
+      "wordType": "Động từ (v)",
+      "firstLetter": "D",
+      "letterCount": 6,
+      "text": "Động từ (v) • 6 chữ cái • Chữ đầu: D"
+    }
+  },
+  {
+    "id": 33,
+    "direction": "en-vi",
+    "question": "salary /ˈsæləri/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "salary",
+    "answer": "TIỀN LƯƠNG",
+    "acceptedAnswers": [
+      "tiền lương",
+      "tien luong",
+      "lương",
+      "luong"
+    ],
+    "ipa": "/ˈsæləri/",
+    "meaning": "tiền lương",
+    "example": "He got a new job with a much higher salary.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "T",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái (2 từ) • Chữ đầu: T"
+    }
+  },
+  {
+    "id": 34,
+    "direction": "vi-en",
+    "question": "bài tập về nhà trong tiếng Anh là gì?",
+    "keyword": "bài tập về nhà",
+    "answer": "HOMEWORK",
+    "acceptedAnswers": [
+      "homework"
+    ],
+    "ipa": "/ˈhoʊmwɜːrk/",
+    "meaning": "bài tập về nhà",
+    "example": "Have you finished your English homework yet?",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 35,
+    "direction": "vi-en",
+    "question": "cái gương trong tiếng Anh là gì?",
+    "keyword": "cái gương",
+    "answer": "MIRROR",
+    "acceptedAnswers": [
+      "mirror"
+    ],
+    "ipa": "/ˈmɪrər/",
+    "meaning": "cái gương",
+    "example": "She looked at herself in the bathroom mirror.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "M",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: M"
+    }
+  },
+  {
+    "id": 36,
+    "direction": "vi-en",
+    "question": "sức khỏe trong tiếng Anh là gì?",
+    "keyword": "sức khỏe",
+    "answer": "HEALTH",
+    "acceptedAnswers": [
+      "health"
+    ],
+    "ipa": "/helθ/",
+    "meaning": "sức khỏe",
+    "example": "Good sleep is very important for your health.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 37,
+    "direction": "en-vi",
+    "question": "crowded /ˈkraʊdɪd/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "crowded",
+    "answer": "ĐÔNG ĐÚC",
+    "acceptedAnswers": [
+      "đông đúc",
+      "dong duc"
+    ],
+    "ipa": "/ˈkraʊdɪd/",
+    "meaning": "đông đúc",
+    "example": "The bus is always crowded during rush hour.",
+    "hint": {
+      "wordType": "Tính từ (adj)",
+      "firstLetter": "Đ",
+      "letterCount": 7,
+      "text": "Tính từ (adj) • 7 chữ cái (2 từ) • Chữ đầu: Đ"
+    }
+  },
+  {
+    "id": 38,
+    "direction": "vi-en",
+    "question": "mượn (động từ) trong tiếng Anh là gì?",
+    "keyword": "mượn",
+    "answer": "BORROW",
+    "acceptedAnswers": [
+      "borrow"
+    ],
+    "ipa": "/ˈbɒroʊ/",
+    "meaning": "mượn",
+    "example": "Can I borrow your pen for a minute?",
+    "hint": {
+      "wordType": "Động từ (v)",
+      "firstLetter": "B",
+      "letterCount": 6,
+      "text": "Động từ (v) • 6 chữ cái • Chữ đầu: B"
+    }
+  },
+  {
+    "id": 39,
+    "direction": "vi-en",
+    "question": "cái ví tiền trong tiếng Anh là gì?",
+    "keyword": "cái ví tiền",
+    "answer": "WALLET",
+    "acceptedAnswers": [
+      "wallet"
+    ],
+    "ipa": "/ˈwɒlɪt/",
+    "meaning": "ví tiền",
+    "example": "He left his leather wallet on the café table.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "W",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: W"
+    }
+  },
+  {
+    "id": 40,
+    "direction": "vi-en",
+    "question": "sở thích trong tiếng Anh là gì?",
+    "keyword": "sở thích",
+    "answer": "HOBBY",
+    "acceptedAnswers": [
+      "hobby"
+    ],
+    "ipa": "/ˈhɒbi/",
+    "meaning": "sở thích",
+    "example": "Playing the guitar is my favorite hobby.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 5,
+      "text": "Danh từ (n) • 5 chữ cái • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 41,
+    "direction": "en-vi",
+    "question": "polite /pəˈlaɪt/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "polite",
+    "answer": "LỊCH SỰ",
+    "acceptedAnswers": [
+      "lịch sự",
+      "lich su"
+    ],
+    "ipa": "/pəˈlaɪt/",
+    "meaning": "lịch sự",
+    "example": "It is polite to say thank you when someone helps you.",
+    "hint": {
+      "wordType": "Tính từ (adj)",
+      "firstLetter": "L",
+      "letterCount": 6,
+      "text": "Tính từ (adj) • 6 chữ cái (2 từ) • Chữ đầu: L"
+    }
+  },
+  {
+    "id": 42,
+    "direction": "vi-en",
+    "question": "chiếc chăn / mền trong tiếng Anh là gì?",
+    "keyword": "chiếc chăn",
+    "answer": "BLANKET",
+    "acceptedAnswers": [
+      "blanket"
+    ],
+    "ipa": "/ˈblæŋkɪt/",
+    "meaning": "chăn, mền",
+    "example": "It was so cold that I needed a warm blanket.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "B",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: B"
+    }
+  },
+  {
+    "id": 43,
+    "direction": "vi-en",
+    "question": "buổi hòa nhạc trong tiếng Anh là gì?",
+    "keyword": "buổi hòa nhạc",
+    "answer": "CONCERT",
+    "acceptedAnswers": [
+      "concert"
+    ],
+    "ipa": "/ˈkɒnsərt/",
+    "meaning": "buổi hòa nhạc",
+    "example": "Thousands of fans came to the live music concert.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "C",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: C"
+    }
+  },
+  {
+    "id": 44,
+    "direction": "vi-en",
+    "question": "hiệu thuốc trong tiếng Anh là gì?",
+    "keyword": "hiệu thuốc",
+    "answer": "PHARMACY",
+    "acceptedAnswers": [
+      "pharmacy"
+    ],
+    "ipa": "/ˈfɑːrməsi/",
+    "meaning": "hiệu thuốc",
+    "example": "You can buy cold medicine at the pharmacy nearby.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "P",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: P"
+    }
+  },
+  {
+    "id": 45,
+    "direction": "en-vi",
+    "question": "mistake /mɪˈsteɪk/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "mistake",
+    "answer": "LỖI SAI",
+    "acceptedAnswers": [
+      "lỗi sai",
+      "loi sai",
+      "sai lầm",
+      "sai lam"
+    ],
+    "ipa": "/mɪˈsteɪk/",
+    "meaning": "lỗi sai, sai lầm",
+    "example": "Don't be afraid of making a mistake when speaking English.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "L",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái (2 từ) • Chữ đầu: L"
+    }
+  },
+  {
+    "id": 46,
+    "direction": "vi-en",
+    "question": "cái muỗng / thìa trong tiếng Anh là gì?",
+    "keyword": "cái muỗng",
+    "answer": "SPOON",
+    "acceptedAnswers": [
+      "spoon"
+    ],
+    "ipa": "/spuːn/",
+    "meaning": "cái muỗng, thìa",
+    "example": "Please pass me a spoon to eat the soup.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "S",
+      "letterCount": 5,
+      "text": "Danh từ (n) • 5 chữ cái • Chữ đầu: S"
+    }
+  },
+  {
+    "id": 47,
+    "direction": "vi-en",
+    "question": "cửa sổ trong tiếng Anh là gì?",
+    "keyword": "cửa sổ",
+    "answer": "WINDOW",
+    "acceptedAnswers": [
+      "window"
+    ],
+    "ipa": "/ˈwɪndoʊ/",
+    "meaning": "cửa sổ",
+    "example": "Could you open the window to let in some fresh air?",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "W",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: W"
+    }
+  },
+  {
+    "id": 48,
+    "direction": "vi-en",
+    "question": "giải thích (động từ) trong tiếng Anh là gì?",
+    "keyword": "giải thích",
+    "answer": "EXPLAIN",
+    "acceptedAnswers": [
+      "explain"
+    ],
+    "ipa": "/ɪkˈspleɪn/",
+    "meaning": "giải thích",
+    "example": "Could you explain this grammar rule again?",
+    "hint": {
+      "wordType": "Động từ (v)",
+      "firstLetter": "E",
+      "letterCount": 7,
+      "text": "Động từ (v) • 7 chữ cái • Chữ đầu: E"
+    }
+  },
+  {
+    "id": 49,
+    "direction": "en-vi",
+    "question": "traffic /ˈtræfɪk/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "traffic",
+    "answer": "GIAO THÔNG",
+    "acceptedAnswers": [
+      "giao thông",
+      "giao thong"
+    ],
+    "ipa": "/ˈtræfɪk/",
+    "meaning": "giao thông",
+    "example": "I was late for work because of heavy traffic.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "G",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái (2 từ) • Chữ đầu: G"
+    }
+  },
+  {
+    "id": 50,
+    "direction": "vi-en",
+    "question": "ngôi làng trong tiếng Anh là gì?",
+    "keyword": "ngôi làng",
+    "answer": "VILLAGE",
+    "acceptedAnswers": [
+      "village"
+    ],
+    "ipa": "/ˈvɪlɪdʒ/",
+    "meaning": "ngôi làng",
+    "example": "My grandparents live in a peaceful little village.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "V",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: V"
+    }
+  },
+  {
+    "id": 51,
+    "direction": "vi-en",
+    "question": "khách sạn trong tiếng Anh là gì?",
+    "keyword": "khách sạn",
+    "answer": "HOTEL",
+    "acceptedAnswers": [
+      "hotel"
+    ],
+    "ipa": "/hoʊˈtel/",
+    "meaning": "khách sạn",
+    "example": "We stayed at a lovely hotel near the beach.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "H",
+      "letterCount": 5,
+      "text": "Danh từ (n) • 5 chữ cái • Chữ đầu: H"
+    }
+  },
+  {
+    "id": 52,
+    "direction": "vi-en",
+    "question": "sô-cô-la trong tiếng Anh là gì?",
+    "keyword": "sô-cô-la",
+    "answer": "CHOCOLATE",
+    "acceptedAnswers": [
+      "chocolate"
+    ],
+    "ipa": "/ˈtʃɒklət/",
+    "meaning": "sô-cô-la",
+    "example": "She bought a box of dark chocolate for her friend.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "C",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái • Chữ đầu: C"
+    }
+  },
+  {
+    "id": 53,
+    "direction": "en-vi",
+    "question": "memory /ˈmeməri/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "memory",
+    "answer": "KÝ ỨC",
+    "acceptedAnswers": [
+      "ký ức",
+      "ky uc",
+      "trí nhớ",
+      "tri nho",
+      "kỷ niệm",
+      "ky niem"
+    ],
+    "ipa": "/ˈmeməri/",
+    "meaning": "ký ức, trí nhớ",
+    "example": "That trip to Sa Pa is my happiest childhood memory.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "K",
+      "letterCount": 4,
+      "text": "Danh từ (n) • 4 chữ cái (2 từ) • Chữ đầu: K"
+    }
+  },
+  {
+    "id": 54,
+    "direction": "vi-en",
+    "question": "chiếc ba lô trong tiếng Anh là gì?",
+    "keyword": "chiếc ba lô",
+    "answer": "BACKPACK",
+    "acceptedAnswers": [
+      "backpack"
+    ],
+    "ipa": "/ˈbækpæk/",
+    "meaning": "ba lô",
+    "example": "He put his laptop and notebook inside his backpack.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "B",
+      "letterCount": 8,
+      "text": "Danh từ (n) • 8 chữ cái • Chữ đầu: B"
+    }
+  },
+  {
+    "id": 55,
+    "direction": "vi-en",
+    "question": "khu vườn trong tiếng Anh là gì?",
+    "keyword": "khu vườn",
+    "answer": "GARDEN",
+    "acceptedAnswers": [
+      "garden"
+    ],
+    "ipa": "/ˈɡɑːrdn/",
+    "meaning": "khu vườn",
+    "example": "My father waters the flowers in the garden every morning.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "G",
+      "letterCount": 6,
+      "text": "Danh từ (n) • 6 chữ cái • Chữ đầu: G"
+    }
+  },
+  {
+    "id": 56,
+    "direction": "vi-en",
+    "question": "hứa (động từ) trong tiếng Anh là gì?",
+    "keyword": "hứa",
+    "answer": "PROMISE",
+    "acceptedAnswers": [
+      "promise"
+    ],
+    "ipa": "/ˈprɒmɪs/",
+    "meaning": "hứa, lời hứa",
+    "example": "I promise I will call you as soon as I arrive.",
+    "hint": {
+      "wordType": "Động từ (v)",
+      "firstLetter": "P",
+      "letterCount": 7,
+      "text": "Động từ (v) • 7 chữ cái • Chữ đầu: P"
+    }
+  },
+  {
+    "id": 57,
+    "direction": "en-vi",
+    "question": "respect /rɪˈspekt/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "respect",
+    "answer": "TÔN TRỌNG",
+    "acceptedAnswers": [
+      "tôn trọng",
+      "ton trong"
+    ],
+    "ipa": "/rɪˈspekt/",
+    "meaning": "tôn trọng",
+    "example": "We should always respect our teachers and parents.",
+    "hint": {
+      "wordType": "Động từ / Danh từ",
+      "firstLetter": "T",
+      "letterCount": 8,
+      "text": "Động từ / Danh từ • 8 chữ cái (2 từ) • Chữ đầu: T"
+    }
+  },
+  {
+    "id": 58,
+    "direction": "vi-en",
+    "question": "cuộc họp trong tiếng Anh là gì?",
+    "keyword": "cuộc họp",
+    "answer": "MEETING",
+    "acceptedAnswers": [
+      "meeting"
+    ],
+    "ipa": "/ˈmiːtɪŋ/",
+    "meaning": "cuộc họp",
+    "example": "Our team has an important meeting at 9 a.m.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "M",
+      "letterCount": 7,
+      "text": "Danh từ (n) • 7 chữ cái • Chữ đầu: M"
+    }
+  },
+  {
+    "id": 59,
+    "direction": "vi-en",
+    "question": "từ điển trong tiếng Anh là gì?",
+    "keyword": "từ điển",
+    "answer": "DICTIONARY",
+    "acceptedAnswers": [
+      "dictionary"
+    ],
+    "ipa": "/ˈdɪkʃəneri/",
+    "meaning": "từ điển",
+    "example": "Use an English dictionary to check the pronunciation.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "D",
+      "letterCount": 10,
+      "text": "Danh từ (n) • 10 chữ cái • Chữ đầu: D"
+    }
+  },
+  {
+    "id": 60,
+    "direction": "en-vi",
+    "question": "success /səkˈses/ trong tiếng Việt nghĩa là gì?",
+    "keyword": "success",
+    "answer": "THÀNH CÔNG",
+    "acceptedAnswers": [
+      "thành công",
+      "thanh cong"
+    ],
+    "ipa": "/səkˈses/",
+    "meaning": "thành công",
+    "example": "Hard work and patience are the keys to success.",
+    "hint": {
+      "wordType": "Danh từ (n)",
+      "firstLetter": "T",
+      "letterCount": 9,
+      "text": "Danh từ (n) • 9 chữ cái (2 từ) • Chữ đầu: T"
+    }
+  }
+];
