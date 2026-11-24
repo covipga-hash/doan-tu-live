@@ -24,6 +24,12 @@
           <span class="toast-text" id="winner-toast-text">Minh Anh đoán đúng! +3 điểm</span>
         </div>
 
+        <!-- Floating Gift Toast -->
+        <div class="gift-toast" id="gift-toast" role="status" aria-live="polite">
+          <span class="gift-toast-avatar" id="gift-toast-avatar">🎁</span>
+          <span class="toast-text" id="gift-toast-text"></span>
+        </div>
+
         <!-- 1. TOP HEADER -->
         <header class="game-header">
           <div class="header-top-row">
@@ -44,10 +50,12 @@
         <!-- 2. QUESTION & ANSWER STAGE -->
         <section class="question-stage" id="question-stage" aria-label="Khu vực câu hỏi">
           <div class="question-meta-row">
-            <div class="question-number-badge" id="question-number">CÂU 1 / 60</div>
+            <div class="question-number-badge" id="question-number">CÂU 1 / 110</div>
             <div class="direction-badge" id="direction-badge">VIỆT ➔ ANH</div>
             <div class="round-status-pill" id="round-status-pill">ĐANG ĐOÁN</div>
           </div>
+
+          <div class="topic-badge" id="topic-badge">CHỦ ĐỀ: Đời sống hàng ngày</div>
 
           <div class="question-prompt-wrap">
             <h2 class="question-text" id="question-text">
@@ -67,7 +75,7 @@
               <span class="hint-sep" aria-hidden="true">•</span>
               <span class="hint-chip hint-chip-accent" id="hint-first-letter">Chữ đầu: T</span>
             </div>
-            <p class="hint-instruction">Bình luận đáp án, không cần viết hoa</p>
+            <p class="hint-instruction" id="hint-instruction">Bình luận đáp án, không cần viết hoa</p>
           </div>
 
           <!-- Status / Answer Reveal Panel (fixed height slot to prevent layout shift) -->
@@ -185,7 +193,7 @@
 
             <div class="end-stats" id="end-stats">
               <div class="end-stat">
-                <span class="end-stat-val" id="stat-questions">60</span>
+                <span class="end-stat-val" id="stat-questions">110</span>
                 <span class="end-stat-lbl">Câu hỏi</span>
               </div>
               <div class="end-stat">
@@ -254,11 +262,11 @@
       <!-- Jump to Question -->
       <div class="control-group">
         <div class="control-label-row">
-          <label class="control-label" for="input-jump-question">Chuyển nhanh câu số (1–60)</label>
+          <label class="control-label" for="input-jump-question">Chuyển nhanh câu số (1–110)</label>
           <span class="control-value-badge" id="current-q-display">#1</span>
         </div>
         <div class="input-row">
-          <input type="number" id="input-jump-question" min="1" max="60" value="1" />
+          <input type="number" id="input-jump-question" min="1" max="110" value="1" />
           <button type="button" class="ctrl-btn ctrl-secondary" id="btn-jump-question">Đi tới</button>
         </div>
       </div>

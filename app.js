@@ -20,6 +20,10 @@
     winnerToast: document.getElementById('winner-toast'),
     winnerToastText: document.getElementById('winner-toast-text'),
 
+    giftToast: document.getElementById('gift-toast'),
+    giftToastText: document.getElementById('gift-toast-text'),
+    giftToastAvatar: document.getElementById('gift-toast-avatar'),
+
     connectionPill: document.getElementById('connection-pill'),
     connectionLabel: document.getElementById('connection-label'),
 
@@ -27,9 +31,12 @@
     questionNumber: document.getElementById('question-number'),
     directionBadge: document.getElementById('direction-badge'),
     roundStatusPill: document.getElementById('round-status-pill'),
+    topicBadge: document.getElementById('topic-badge'),
     questionText: document.getElementById('question-text'),
     letterBoxes: document.getElementById('letter-boxes'),
 
+    hintChips: document.getElementById('hint-chips'),
+    hintInstruction: document.getElementById('hint-instruction'),
     hintWordType: document.getElementById('hint-word-type'),
     hintLetterCount: document.getElementById('hint-letter-count'),
     hintFirstLetter: document.getElementById('hint-first-letter'),
@@ -175,7 +182,15 @@
     ablyConnected: false,
     ablyAttachedOnce: false,
     pageLoadTs: Date.now(), // lọc bình luận cũ khi (re)subscribe
-    seenMsgIds: new Set() // chống trùng khi Ably replay sau reconnect
+    seenMsgIds: new Set(), // chống trùng khi Ably replay sau reconnect
+    // --- Quà tặng + chủ đề (THÊM 24/11) ---
+    bonusSecondsThisRound: 0, // tổng số giây đã cộng thêm trong vòng này (trần 20s)
+    revealedLetterIdx: new Set(), // index ký tự đáp án đã hé lộ (ô chữ)
+    hardModeQuestionsLeft: 0, // số câu tiếp theo còn ẩn gợi ý
+    hintsHidden: false, // câu hiện tại có đang ẩn gợi ý không
+    topics: [], // tên chủ đề theo thứ tự xuất hiện trong questions.json
+    topicIndices: {}, // topic -> [index câu]
+    giftToastTimer: null
   };
 
   // -----------------------------
@@ -368,11 +383,12 @@
       if (before) speakRaw(before, kwLang, kwVoice);
       speakRaw(kw, kwLang, kwVoice);
       if (after) speakRaw(after);
-      speakRaw(hint);
+      // Độ khó đang bật: chỉ đọc câu hỏi, không đọc phần gợi ý.
+      if (!state.hintsHidden) speakRaw(hint);
     } else {
       speak(`Câu ${n}:`, true);
       speakRaw(cleanSpoken(qtext), kwLang, kwVoice);
-      speakRaw(hint);
+      if (!state.hintsHidden) speakRaw(hint);
     }
   }
 
@@ -625,7 +641,10 @@
   // -----------------------------
   // Rendering: Question & Letter Boxes
   // -----------------------------
-  function renderLetterBoxes(answer, revealed = false) {
+  // Ô chữ đáp án: mỗi chữ cái là 1 ô; ô nào nằm trong revealedIdxSet
+  // thì hiện chữ, còn lại để trống. Khoảng trắng giữa các từ giữ nguyên.
+  // revealAnswer() truyền Set chứa toàn bộ index chữ cái.
+  function renderLetterBoxes(answer, revealedIdxSet) {
     const container = els.letterBoxes;
     container.innerHTML = '';
 
@@ -642,7 +661,7 @@
     }
 
     let tileIndex = 0;
-    chars.forEach((ch) => {
+    chars.forEach((ch, charIdx) => {
       if (ch === ' ') {
         const gap = document.createElement('div');
         gap.className = 'letter-word-gap';
@@ -652,14 +671,46 @@
       }
 
       const box = document.createElement('div');
-      box.className = revealed ? 'letter-box revealed' : 'letter-box is-blank';
-      box.textContent = revealed ? ch.toUpperCase() : '';
-      if (revealed) {
+      const isRevealed = Boolean(revealedIdxSet && revealedIdxSet.has(charIdx));
+      box.className = isRevealed ? 'letter-box revealed' : 'letter-box is-blank';
+      box.textContent = isRevealed ? ch.toUpperCase() : '';
+      if (isRevealed) {
         box.style.animationDelay = `${tileIndex * 55}ms`;
       }
       container.appendChild(box);
       tileIndex++;
     });
+  }
+
+  // Hé lộ chữ tiếp theo chưa lộ của đáp án (quà 1 xu). Chữ đầu lộ rồi
+  // thì lộ chữ kế tiếp. Trả về true nếu lộ được thêm 1 chữ.
+  function revealNextLetter() {
+    if (state.phase !== 'playing') return false;
+    const q = state.questions[state.currentIndex];
+    if (!q) return false;
+    const chars = Array.from(q.answer.trim());
+    for (let i = 0; i < chars.length; i++) {
+      if (chars[i] === ' ') continue;
+      if (!state.revealedLetterIdx.has(i)) {
+        state.revealedLetterIdx.add(i);
+        renderLetterBoxes(q.answer, state.revealedLetterIdx);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Ẩn/hiện chip gợi ý theo trạng thái độ khó của câu hiện tại.
+  function applyHintsVisibility() {
+    els.hintChips.classList.toggle('hints-hidden', state.hintsHidden);
+    els.hintInstruction.textContent = state.hintsHidden
+      ? '🔒 Độ khó đã tăng — không còn gợi ý!'
+      : 'Bình luận đáp án, không cần viết hoa';
+  }
+
+  function renderTopicBadge() {
+    const q = state.questions[state.currentIndex];
+    els.topicBadge.textContent = q && q.topic ? `CHỦ ĐỀ: ${q.topic}` : '';
   }
 
   function renderCurrentQuestion() {
@@ -673,7 +724,8 @@
     els.roundStatusPill.className = 'round-status-pill';
 
     els.questionText.innerHTML = formatQuestionHtml(q);
-    renderLetterBoxes(q.answer, false);
+    renderLetterBoxes(q.answer, state.revealedLetterIdx);
+    renderTopicBadge();
 
     // Hint chips
     const wordCount = q.answer.trim().split(/\s+/).length;
@@ -683,6 +735,7 @@
     els.hintWordType.textContent = q.hint.wordType;
     els.hintLetterCount.textContent = countLabel;
     els.hintFirstLetter.textContent = `Chữ đầu: ${q.hint.firstLetter}`;
+    applyHintsVisibility();
 
     // Reset bottom status area
     els.revealCard.classList.add('hidden');
@@ -901,6 +954,126 @@
   }
 
   // -----------------------------
+  // Topics & Gift Perks (THÊM 24/11 — xem gifts-catalog-2026-11-24.md)
+  // 8 chủ đề theo thứ tự trong questions.json; quà tặng kích hoạt perk
+  // theo số xu: <=1 → +5s + hé lộ chữ đầu; 2–9 → xáo trộn chủ đề;
+  // 10–14 → thay đổi chủ đề; 15–19 → nâng độ khó; >=20 → khó + đổi chủ đề.
+  // -----------------------------
+  const MAX_BONUS_SECONDS_PER_ROUND = 20; // tổng cộng thêm tối đa 20s/vòng
+
+  function buildTopicIndex() {
+    state.topics = [];
+    state.topicIndices = {};
+    state.questions.forEach((q, idx) => {
+      const t = q.topic || 'Chung';
+      if (!state.topicIndices[t]) {
+        state.topicIndices[t] = [];
+        state.topics.push(t);
+      }
+      state.topicIndices[t].push(idx);
+    });
+  }
+
+  function jumpToTopicFirstQuestion(topic) {
+    const list = state.topicIndices[topic];
+    if (!list || list.length === 0) return false;
+    startQuestion(list[0]);
+    return true;
+  }
+
+  // Thay đổi chủ đề: nhảy tới câu đầu của chủ đề TIẾP THEO theo thứ tự;
+  // hết chủ đề cuối thì quay về chủ đề đầu.
+  function changeTopic() {
+    if (state.topics.length === 0) return false;
+    const cur = state.questions[state.currentIndex];
+    const pos = state.topics.indexOf(cur ? cur.topic : null);
+    const next = state.topics[(pos + 1) % state.topics.length];
+    return jumpToTopicFirstQuestion(next);
+  }
+
+  // Xáo trộn chủ đề: nhảy tới câu đầu của một chủ đề NGẪU NHIÊN
+  // (khác chủ đề hiện tại nếu có lựa chọn khác).
+  function shuffleTopic() {
+    if (state.topics.length === 0) return false;
+    const cur = state.questions[state.currentIndex];
+    const curTopic = cur ? cur.topic : null;
+    let candidates = state.topics.filter((t) => t !== curTopic);
+    if (candidates.length === 0) candidates = state.topics;
+    const pick = candidates[Math.floor(Math.random() * candidates.length)];
+    return jumpToTopicFirstQuestion(pick);
+  }
+
+  // Nâng độ khó: ẩn toàn bộ chip gợi ý (loại từ, số chữ, chữ đầu) cho
+  // câu hiện tại + 2 câu tiếp theo; các ô chữ đã lộ vẫn hiện.
+  function raiseDifficulty() {
+    if (state.phase === 'playing') {
+      state.hintsHidden = true;
+      applyHintsVisibility();
+      state.hardModeQuestionsLeft = Math.max(state.hardModeQuestionsLeft, 2);
+    } else {
+      state.hardModeQuestionsLeft = Math.max(state.hardModeQuestionsLeft, 3);
+    }
+  }
+
+  // +5 giây suy nghĩ: cộng vào đồng hồ vòng hiện tại; tổng cộng thêm
+  // tối đa 20 giây/vòng (quà 1 xu thứ 5 trở đi trong cùng vòng không cộng).
+  // Trả về số giây thực sự đã cộng.
+  function addBonusSeconds(sec) {
+    if (state.phase !== 'playing') return 0;
+    const add = Math.max(0, Math.min(sec, MAX_BONUS_SECONDS_PER_ROUND - state.bonusSecondsThisRound));
+    if (add <= 0) return 0;
+    state.bonusSecondsThisRound += add;
+    state.timeLeft += add;
+    state.lastTickWholeSec = Math.max(state.lastTickWholeSec, Math.ceil(state.timeLeft));
+    // Đồng hồ nhảy lên lại trên ngưỡng thì cho phép đọc "Còn 10/5 giây" lại
+    if (state.timeLeft > 10) state.voiceFlags.p10 = false;
+    if (state.timeLeft > 5) state.voiceFlags.p5 = false;
+    renderTimer();
+    return add;
+  }
+
+  function showGiftToast(user, giftName, coins, avatar) {
+    if (avatar) {
+      els.giftToastAvatar.innerHTML = `<img src="${escapeHtml(avatar)}" alt="" />`;
+    } else {
+      els.giftToastAvatar.textContent = '🎁';
+    }
+    els.giftToastText.textContent = `${user} đã tặng ${giftName} (${coins} xu)`;
+    els.giftToast.classList.add('show');
+    if (state.giftToastTimer) clearTimeout(state.giftToastTimer);
+    state.giftToastTimer = setTimeout(() => {
+      els.giftToast.classList.remove('show');
+    }, 4000);
+  }
+
+  // 1 event quà (từ Ably hoặc test): banner + giọng cảm ơn cho mọi quà,
+  // rồi áp perk theo số xu.
+  function handleIncomingGift(gift) {
+    if (!gift) return;
+    const user = String(gift.user || gift.username || 'Khán giả').trim() || 'Khán giả';
+    const giftName = String(gift.giftName || gift.gift || 'Quà');
+    const coins = Math.max(0, Number(gift.coins ?? gift.diamondCount ?? 0) || 0);
+    const avatar = gift.avatar || '';
+
+    showGiftToast(user, giftName, coins, avatar);
+    speak(`Cảm ơn ${user} đã tặng ${giftName}!`, false);
+
+    if (coins <= 1) {
+      addBonusSeconds(5);
+      revealNextLetter();
+    } else if (coins <= 9) {
+      shuffleTopic();
+    } else if (coins <= 14) {
+      changeTopic();
+    } else if (coins <= 19) {
+      raiseDifficulty();
+    } else {
+      raiseDifficulty();
+      changeTopic();
+    }
+  }
+
+  // -----------------------------
   // Demo Mode Comment Scheduler
   // -----------------------------
   function clearDemoTimers() {
@@ -993,6 +1166,16 @@
     state.roundScorers = [];
     state.timeLeft = state.questionDuration;
     state.lastTickWholeSec = state.questionDuration;
+    state.bonusSecondsThisRound = 0;
+    state.revealedLetterIdx = new Set();
+    // Độ khó: nếu còn lượt ẩn gợi ý thì câu này ẩn + trừ 1 lượt
+    // (quà 15/20 xu: câu hiện tại + 2 câu tiếp theo).
+    if (state.hardModeQuestionsLeft > 0) {
+      state.hintsHidden = true;
+      state.hardModeQuestionsLeft -= 1;
+    } else {
+      state.hintsHidden = false;
+    }
 
     els.endScreen.classList.add('hidden');
     renderCurrentQuestion();
@@ -1033,7 +1216,10 @@
     els.roundStatusPill.className = 'round-status-pill is-answer';
 
     // Flip letter boxes to green with answer characters
-    renderLetterBoxes(q.answer, true);
+    const allIdx = new Set();
+    Array.from(q.answer.trim()).forEach((ch, i) => { if (ch !== ' ') allIdx.add(i); });
+    state.revealedLetterIdx = allIdx;
+    renderLetterBoxes(q.answer, allIdx);
 
     // Show IPA, meaning & example sentence
     els.guessingStatus.classList.add('hidden');
@@ -1155,6 +1341,13 @@
       // Allow scoring again cleanly on current question
       state.roundWinner = null;
       state.roundScorers = [];
+      state.bonusSecondsThisRound = 0;
+      state.revealedLetterIdx = new Set();
+      state.hintsHidden = false;
+      state.hardModeQuestionsLeft = 0;
+      const cq = state.questions[state.currentIndex];
+      if (cq) renderLetterBoxes(cq.answer, state.revealedLetterIdx);
+      applyHintsVisibility();
       els.roundStatusPill.textContent = 'ĐANG ĐOÁN';
       els.roundStatusPill.className = 'round-status-pill';
       els.guessingStatus.classList.remove('winner-found');
@@ -1312,6 +1505,7 @@
 
     channel.subscribe('comment', onAblyComment);
     channel.subscribe('status', onAblyStatus);
+    channel.subscribe('gift', onAblyGift);
   }
 
   function parseAblyData(raw) {
@@ -1339,6 +1533,23 @@
     const ts = Number(data.timestamp || msg.timestamp || 0);
     if (ts && ts < state.pageLoadTs - 10000) return;
     handleIncomingComment(data.user || data.username || 'Khán giả', data.text);
+  }
+
+  function onAblyGift(msg) {
+    // Chống trùng + lọc quà cũ: cùng cơ chế như bình luận.
+    if (msg.id) {
+      if (state.seenMsgIds.has(msg.id)) return;
+      state.seenMsgIds.add(msg.id);
+      if (state.seenMsgIds.size > 500) {
+        const first = state.seenMsgIds.values().next().value;
+        state.seenMsgIds.delete(first);
+      }
+    }
+    const data = parseAblyData(msg.data);
+    if (!data || typeof data.giftName !== 'string') return;
+    const ts = Number(data.timestamp || msg.timestamp || 0);
+    if (ts && ts < state.pageLoadTs - 10000) return;
+    handleIncomingGift(data);
   }
 
   function onAblyStatus(msg) {
@@ -1599,6 +1810,7 @@
 
     try {
       state.questions = await loadQuestions();
+      buildTopicIndex();
       els.inputJumpQuestion.max = String(state.questions.length);
 
       const startIdx =
@@ -1624,9 +1836,16 @@
       roundWinner: state.roundWinner,
       totalQuestions: state.questions.length,
       totalComments: state.totalComments,
-      leaderboard: getSortedLeaderboard()
+      leaderboard: getSortedLeaderboard(),
+      topic: state.questions[state.currentIndex] ? state.questions[state.currentIndex].topic : null,
+      topics: state.topics.slice(),
+      bonusSecondsThisRound: state.bonusSecondsThisRound,
+      hardModeQuestionsLeft: state.hardModeQuestionsLeft,
+      hintsHidden: state.hintsHidden,
+      revealedLetters: state.revealedLetterIdx.size
     }),
     submitComment: handleIncomingComment,
+    submitGift: handleIncomingGift,
     ably: () => ({
       connected: state.ablyConnected,
       channel: state.ablyChannel ? state.ablyChannel.name : null,
