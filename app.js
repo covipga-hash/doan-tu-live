@@ -393,7 +393,7 @@
     try {
       if (!('speechSynthesis' in window)) return;
       const u = new SpeechSynthesisUtterance('Đã bật tiếng');
-      u.lang = 'vi-VN'; u.rate = 1.4; u.pitch = 1.12; u.volume = 1.0;
+      u.lang = 'vi-VN'; u.rate = 1.15; u.pitch = 1.12; u.volume = 1.0;
       const voice = pickVoice('vi-VN');
       if (voice) u.voice = voice;
       u.onstart = () => {
@@ -431,7 +431,7 @@
       if (!clean) return false;
       const useLang = lang || 'vi-VN';
       const u = new SpeechSynthesisUtterance(clean);
-      u.lang = useLang; u.rate = 1.4; u.pitch = 1.12; u.volume = 1.0; // Tối đa trình duyệt cho phép (Cơ 24/11 20:49: +50% từ 0.75 = 1.125, vượt trần 1.0 nên lấy 1.0, thực tăng ~33%).
+      u.lang = useLang; u.rate = 1.15; u.pitch = 1.12; u.volume = 1.0; // Tốc độ 1.15 (Cơ 25/11 03:14: giảm từ 1.4 về mức trước lúc tăng tối 24/11). Âm lượng 1.0 là tối đa trình duyệt cho phép (Cơ 24/11 20:49: +50% từ 0.75 = 1.125, vượt trần 1.0 nên lấy 1.0, thực tăng ~33%).
       const voice = voiceOverride || pickVoice(useLang);
       if (voice) u.voice = voice;
       // Tự cứu khi hàng đợi giọng bị kẹt từ lần đọc trước.
