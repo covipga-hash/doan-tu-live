@@ -143,7 +143,7 @@
   // -----------------------------
   // Application State
   // -----------------------------
-  const REVEAL_DURATION_SEC = 5.5;
+  const REVEAL_DURATION_SEC = 8.5; // +3s sau khi hết giờ để đọc người trả lời nhanh nhất / giao lưu (Cơ 24/11 20:12).
   const END_SCREEN_AUTO_RESTART_SEC = 10; // honour Top 3, then auto-start a fresh round
   const MAX_VISIBLE_COMMENTS = 10;
 
@@ -169,6 +169,7 @@
     greetedUsers: new Set(),
     voiceFlags: { p10: false, p5: false },
     standingsTimer: null,
+    revealCheerTimer: null,
     obsMode: false,
     tiktokConnected: false,
     tiktokUsername: '',
@@ -1240,6 +1241,7 @@
   function startQuestion(index) {
     clearDemoTimers();
     if (state.endScreenTimer) { clearTimeout(state.endScreenTimer); state.endScreenTimer = null; }
+    if (state.revealCheerTimer) { clearTimeout(state.revealCheerTimer); state.revealCheerTimer = null; }
 
     if (index >= state.questions.length) {
       showEndScreen();
@@ -1322,6 +1324,8 @@
 
     if (state.roundWinner) {
       els.revealWinnerLine.textContent = formatRoundScorersLine();
+      // Đọc người trả lời nhanh nhất trong lúc chờ trước câu sau (Cơ 24/11 20:12).
+      speak(`Chúc mừng ${state.roundWinner} trả lời nhanh nhất, cộng 3 điểm!`, true);
     } else {
       els.revealWinnerLine.textContent = '⏰ Hết giờ! Cùng ghi nhớ từ vựng này nhé!';
       // Read the answer with a female voice and American pronunciation
@@ -1331,6 +1335,13 @@
       const ansVoice = ansLang === 'en-US' ? pickFemaleVoice('en-US') : null;
       speak('Hết giờ, chưa ai đúng. Đáp án là', true);
       speakRaw(q.answer, ansLang, ansVoice);
+      // Không ai đúng: đợi đáp án đọc xong (~3s) rồi nói 1 câu giao lưu
+      // trong lúc chờ câu sau (Cơ 24/11 20:12).
+      if (state.revealCheerTimer) clearTimeout(state.revealCheerTimer);
+      state.revealCheerTimer = setTimeout(() => {
+        state.revealCheerTimer = null;
+        speak('Nhớ từ này nhé, câu sau thử lại!', false);
+      }, 3000);
     }
 
     updateRevealCountdownUI();
@@ -1356,6 +1367,7 @@
   }
 
   function nextQuestion() {
+    if (state.revealCheerTimer) { clearTimeout(state.revealCheerTimer); state.revealCheerTimer = null; }
     if (state.currentIndex + 1 >= state.questions.length) {
       showEndScreen();
     } else {
