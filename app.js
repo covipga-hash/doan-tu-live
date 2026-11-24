@@ -272,7 +272,7 @@
 
   // -----------------------------
   // Voice (BLV / TTS) — speechSynthesis
-  // Same pattern as the zombie game (proven): vi-VN, rate 1.15, pitch 1.12.
+  // Same pattern as the zombie game (proven): vi-VN, rate 1.4, pitch 1.12.
   // Normal lines: at most 1 per 8s and never over a line already speaking.
   // Priority lines (new question, correct answer, end screen) cut in.
   // -----------------------------
@@ -330,7 +330,7 @@
       if (!clean) return false;
       const useLang = lang || 'vi-VN';
       const u = new SpeechSynthesisUtterance(clean);
-      u.lang = useLang; u.rate = 1.15; u.pitch = 1.12; u.volume = 0.75;
+      u.lang = useLang; u.rate = 1.4; u.pitch = 1.12; u.volume = 0.75;
       const voice = voiceOverride || pickVoice(useLang);
       if (voice) u.voice = voice;
       speechSynthesis.speak(u);
@@ -351,7 +351,13 @@
       if (!prio && state.phase === 'playing' && state.timeLeft <= 4) return false;
       if (prio) speechSynthesis.cancel();
       const ok = speakRaw(text, lang, voiceOverride);
-      if (ok) state.lastSpeak = now;
+      // Chỉ câu giao lưu (không ưu tiên) mới đặt lại đồng hồ throttle:
+      // câu hỏi/đáp án (ưu tiên) không được chiếm mất khoảng trống, để
+      // trong vòng 10s vẫn còn cửa cho 1 câu chúc mừng/cảm ơn sau khi
+      // câu hỏi đọc xong (Cơ 24/11 20:01: để dành thời gian cho voice
+      // giao lưu). Chắn chống cắt ngang vẫn còn: không nói đè lên câu
+      // đang đọc, và không bắt đầu câu thường khi vòng còn ≤4s.
+      if (ok && !prio) state.lastSpeak = now;
       return ok;
     } catch (e) { return false; }
   }
@@ -376,7 +382,8 @@
     const q = state.questions[state.currentIndex];
     if (!q) return;
     const n = state.currentIndex + 1;
-    const hint = `${q.hint.wordType}, ${q.hint.letterCount} chữ cái, chữ đầu là ${q.hint.firstLetter}.`;
+    // Chỉ đọc chữ đầu, không đọc loại từ và số chữ cái (Cơ 24/11 20:00).
+    const hint = `Chữ đầu là ${q.hint.firstLetter}.`;
     const kw = q.keyword ? String(q.keyword) : '';
     const qtext = String(q.question || '');
     const kwLang = q.direction === 'en-vi' ? 'en-US' : 'vi-VN';
