@@ -930,7 +930,7 @@
   // -----------------------------
   // Rendering: Comment Feed
   // -----------------------------
-  function appendCommentToFeed(user, text, isWinningGuess) {
+  function appendCommentToFeed(user, text, isWinningGuess, points) {
     const feed = els.commentFeed;
     const emptyEl = feed.querySelector('.empty-state');
     if (emptyEl) emptyEl.remove();
@@ -948,7 +948,7 @@
       <div class="comment-body">
         <span class="comment-author">${escapeHtml(user)}</span>
         <span class="comment-text">${escapeHtml(text)}</span>
-        ${isWinningGuess ? '<span class="comment-badge-win">✓ ĐÚNG +1</span>' : ''}
+        ${isWinningGuess ? `<span class="comment-badge-win">✓ ĐÚNG +${points || 1}</span>` : ''}
       </div>
     `;
 
@@ -974,6 +974,7 @@
 
     const currentQ = state.questions[state.currentIndex];
     let awarded = false;
+    let awardedPoints = 0;
 
     // Scoring: the 10 fastest correct guessers per round score —
     // 1st +3, 2nd +2, 3rd–10th +1 each. One score per person per round.
@@ -992,6 +993,7 @@
       awarded = true;
       const rank = state.roundScorers.length + 1;
       const points = rank === 1 ? 3 : rank === 2 ? 2 : 1;
+      awardedPoints = points;
       state.roundScorers.push({ name: cleanUser, points });
       if (!state.roundWinner) state.roundWinner = cleanUser;
 
@@ -1031,7 +1033,7 @@
         `<strong>${escapeHtml(cleanUser)}</strong> ${rankText} (+${points} điểm)! Chờ hết giờ xem đáp án nhé!`;
     }
 
-    appendCommentToFeed(cleanUser, cleanText, awarded);
+    appendCommentToFeed(cleanUser, cleanText, awarded, awardedPoints);
     voiceOnComment(cleanUser, awarded);
   }
 
