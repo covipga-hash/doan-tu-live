@@ -234,7 +234,7 @@
     }
   }
 
-  function playTone(freq, duration, type = 'sine', volume = 0.08, delay = 0) {
+  function playTone(freq, duration, type = 'sine', volume = 0.12, delay = 0) { // +50% (Cơ 24/11 20:49).
     const ctx = ensureAudioCtx();
     if (!ctx) return;
     try {
@@ -256,19 +256,19 @@
   }
 
   function playCorrectSfx() {
-    playTone(587.33, 0.14, 'triangle', 0.12, 0);
-    playTone(880.0, 0.24, 'triangle', 0.14, 0.1);
+    playTone(587.33, 0.14, 'triangle', 0.18, 0);
+    playTone(880.0, 0.24, 'triangle', 0.21, 0.1);
   }
 
   function playRevealSfx() {
-    playTone(523.25, 0.14, 'triangle', 0.1, 0);
-    playTone(659.25, 0.14, 'triangle', 0.1, 0.09);
-    playTone(783.99, 0.16, 'triangle', 0.11, 0.18);
-    playTone(1046.5, 0.34, 'triangle', 0.13, 0.27);
+    playTone(523.25, 0.14, 'triangle', 0.15, 0);
+    playTone(659.25, 0.14, 'triangle', 0.15, 0.09);
+    playTone(783.99, 0.16, 'triangle', 0.165, 0.18);
+    playTone(1046.5, 0.34, 'triangle', 0.195, 0.27);
   }
 
   function playTickSfx() {
-    playTone(720, 0.06, 'sine', 0.05, 0);
+    playTone(720, 0.06, 'sine', 0.075, 0);
   }
 
   // -----------------------------
@@ -331,7 +331,7 @@
       if (!clean) return false;
       const useLang = lang || 'vi-VN';
       const u = new SpeechSynthesisUtterance(clean);
-      u.lang = useLang; u.rate = 1.4; u.pitch = 1.12; u.volume = 0.75;
+      u.lang = useLang; u.rate = 1.4; u.pitch = 1.12; u.volume = 1.0; // Tối đa trình duyệt cho phép (Cơ 24/11 20:49: +50% từ 0.75 = 1.125, vượt trần 1.0 nên lấy 1.0, thực tăng ~33%).
       const voice = voiceOverride || pickVoice(useLang);
       if (voice) u.voice = voice;
       speechSynthesis.speak(u);
