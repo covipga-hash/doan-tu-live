@@ -145,7 +145,7 @@
   // -----------------------------
   const REVEAL_DURATION_SEC = 5.5;
   const END_SCREEN_AUTO_RESTART_SEC = 10; // honour Top 3, then auto-start a fresh round
-  const MAX_VISIBLE_COMMENTS = 4;
+  const MAX_VISIBLE_COMMENTS = 10;
 
   const state = {
     questions: [],
@@ -826,14 +826,14 @@
       }
     }
 
-    // Update TOP CAO THỦ List (top 6 fit cleanly without scrollbars)
+    // Update TOP CAO THỦ List (top 5: Top 3 + 2 người sau, vừa khung không cần cuộn)
     const list = els.leaderboardList;
     if (sorted.length === 0) {
       list.innerHTML = '<li class="empty-state">Bình luận đáp án đúng để ghi danh lên bảng vàng!</li>';
       return;
     }
 
-    const topRows = sorted.slice(0, 6);
+    const topRows = sorted.slice(0, 5);
     list.innerHTML = topRows
       .map((p, idx) => {
         const rank = idx + 1;
@@ -933,14 +933,14 @@
     const avatarBg = getAvatarColor(user);
     const initials = getInitials(user);
 
+    // Một dòng / bình luận (tên + nội dung + huy hiệu nếu đúng): 7 dòng mới
+    // vừa khung 1080x1920. Bình luận dài tự cắt bằng dấu ... ở cuối.
     li.innerHTML = `
       <div class="comment-avatar" style="background:${avatarBg}">${escapeHtml(initials)}</div>
       <div class="comment-body">
-        <div class="comment-meta">
-          <span class="comment-author">${escapeHtml(user)}</span>
-          ${isWinningGuess ? '<span class="comment-badge-win">✓ ĐÚNG +1</span>' : ''}
-        </div>
-        <div class="comment-text">${escapeHtml(text)}</div>
+        <span class="comment-author">${escapeHtml(user)}</span>
+        <span class="comment-text">${escapeHtml(text)}</span>
+        ${isWinningGuess ? '<span class="comment-badge-win">✓ ĐÚNG +1</span>' : ''}
       </div>
     `;
 
