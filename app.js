@@ -1323,8 +1323,8 @@
     els.roundStatusPill.textContent = 'ĐÁP ÁN';
     els.roundStatusPill.className = 'round-status-pill is-answer';
 
-        // Flip letter boxes to green with answer characters
-        const allIdx = new Set();
+   // Flip letter boxes to green with answer characters
+   const allIdx = new Set();
     Array.from(q.answer.trim()).forEach((ch, i) => { if (ch !== ' ') allIdx.add(i); });
     state.revealedLetterIdx = allIdx;
     renderLetterBoxes(q.answer, allIdx);
