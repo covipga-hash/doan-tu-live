@@ -661,7 +661,7 @@
     for (let i = 0; i < name.length; i++) {
       hash = (hash * 31 + name.charCodeAt(i)) | 0;
     }
-         return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+    return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
   }
 
   function getInitials(name) {
@@ -1324,7 +1324,7 @@
     els.roundStatusPill.className = 'round-status-pill is-answer';
 
     // Flip letter boxes to green with answer characters
-       const allIdx = new Set();
+const allIdx = new Set();
     Array.from(q.answer.trim()).forEach((ch, i) => { if (ch !== ' ') allIdx.add(i); });
     state.revealedLetterIdx = allIdx;
     renderLetterBoxes(q.answer, allIdx);
