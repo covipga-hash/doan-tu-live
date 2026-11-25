@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=1" />
 </head>
 <body>
   <div class="app-shell" id="app-shell">
@@ -29,15 +29,7 @@
           <span class="gift-toast-avatar" id="gift-toast-avatar">🎁</span>
           <span class="toast-text" id="gift-toast-text"></span>
         </div>
-
-        <!-- Voice Unlock Overlay: Chrome (Android) chặn tiếng tới khi chạm
-             vào trang — bấm 1 lần để mở khóa giọng cho cả buổi live -->
-        <button type="button" class="voice-unlock-btn" id="voice-unlock-btn">
-          <span class="voice-unlock-icon" aria-hidden="true">🔊</span>
-          <span class="voice-unlock-text">Bấm để bật tiếng</span>
-          <span class="voice-unlock-sub">Chạm 1 lần để nghe giọng đọc cả buổi live</span>
-        </button>
-
+        
         <!-- 1. TOP HEADER -->
         <header class="game-header">
           <div class="header-top-row">
@@ -49,8 +41,7 @@
               <span class="mode-dot" id="connection-dot"></span>
               <span id="connection-label">DEMO MODE</span>
             </div>
-            <button type="button" class="voice-indicator voice-off" id="voice-indicator" title="Giọng đọc đang tắt — bấm để bật tiếng">🔇</button>
-          </div>
+            div>
 
           <p class="game-subtitle">TIẾNG ANH - A2 - TỪ VỰNG</p>
           <h1 class="game-title">ĐOÁN TỪ</h1>
@@ -363,6 +354,6 @@
   <script src="ably-config.js"></script>
   <!-- Offline fallback dataset synced with questions.json -->
   <script src="questions-data.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=1"></script>
 </body>
 </html>
