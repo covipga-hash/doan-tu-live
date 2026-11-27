@@ -143,7 +143,7 @@
   // -----------------------------
   // Application State
   // -----------------------------
-  const REVEAL_DURATION_SEC = 8.5; // +3s sau khi hết giờ để đọc người trả lời nhanh nhất / giao lưu (Cơ 24/11 20:12).
+  const REVEAL_DURATION_SEC = 5; // Màn đáp án 5s (Cơ 27/11 ~11:50; trước đây 8.5s để đọc câu chúc mừng người nhanh nhất — với 5s câu đó có thể bị ngắn lại).
   const END_SCREEN_AUTO_RESTART_SEC = 10; // honour Top 3, then auto-start a fresh round
   const MAX_VISIBLE_COMMENTS = 10;
 
