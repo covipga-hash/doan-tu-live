@@ -1323,8 +1323,8 @@
     els.roundStatusPill.textContent = 'ĐÁP ÁN';
     els.roundStatusPill.className = 'round-status-pill is-answer';
 
-   // Flip letter boxes to green with answer characters
-   const allIdx = new Set();
+    // Flip letter boxes to green with answer characters
+    const allIdx = new Set();
     Array.from(q.answer.trim()).forEach((ch, i) => { if (ch !== ' ') allIdx.add(i); });
     state.revealedLetterIdx = allIdx;
     renderLetterBoxes(q.answer, allIdx);
@@ -1582,7 +1582,7 @@
     // Tài khoản MAU bắt buộc clientId trên device (không có thì 401).
     const realtime = AblyPubSub.createClient({
       key: cfg.key,
-      clientId: 'obs-' + Math.random().toString(36).slice(2, 8)
+      clientId: 'obs-doan-tu'
     });
     state.ably = realtime;
 
